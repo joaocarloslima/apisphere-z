@@ -1,6 +1,8 @@
 package br.com.fiap.apisphere.user;
 
+import br.com.fiap.apisphere.user.dto.UserProfileResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -23,4 +25,9 @@ public class UserService {
         return repository.save(user);
     }
 
+    public UserProfileResponse getUserProfile(String email) {
+        return repository.findByEmail(email)
+                .map(UserProfileResponse::new)
+                .orElseThrow(() -> new UsernameNotFoundException("Uset not found"));
+    }
 }

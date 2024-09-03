@@ -1,9 +1,11 @@
 package br.com.fiap.apisphere.user;
 
 import br.com.fiap.apisphere.user.dto.UserFormRequest;
+import br.com.fiap.apisphere.user.dto.UserProfileResponse;
 import br.com.fiap.apisphere.user.dto.UserResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -37,6 +39,12 @@ public class UserController {
         return ResponseEntity
                 .created(uri)
                 .body(UserResponse.fromModel(user));
+    }
+
+    @GetMapping("profile")
+    public UserProfileResponse getUserProfile(){
+        var email = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+        return service.getUserProfile(email);
     }
 
 }
