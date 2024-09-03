@@ -1,5 +1,7 @@
 package br.com.fiap.apisphere.post;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,8 +15,8 @@ public class PostService {
         this.postRepository = postRepository;
     }
 
-    public List<Post> findAll(){
-        return postRepository.findAll();
+    public Page<Post> findAll(Pageable pageable){
+        return postRepository.findAll(pageable);
     }
 
 }

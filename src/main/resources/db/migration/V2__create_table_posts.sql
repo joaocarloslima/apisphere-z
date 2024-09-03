@@ -1,4 +1,4 @@
-CREATE TABLE posts (
+CREATE TABLE IF NOT EXISTS posts (
    id BIGINT AUTO_INCREMENT,
    text VARCHAR(255),
    created_at datetime,
