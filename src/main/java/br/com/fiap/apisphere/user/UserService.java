@@ -32,6 +32,7 @@ public class UserService {
 
     public User create(User user){
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setAvatar("https://avatar.iran.liara.run/username?username=" + user.getName());
         return repository.save(user);
     }
 
