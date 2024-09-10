@@ -9,6 +9,7 @@ public record UserResponse(
         String name,
         String bio,
         String email,
+        String avatar,
         LocalDateTime createdAt,
         LocalDateTime updatedAt
 ) {
@@ -18,6 +19,7 @@ public record UserResponse(
                 user.getName(),
                 user.getBio(),
                 user.getEmail(),
+                user.getAvatar(),
                 user.getCreatedAt(),
                 user.getUpdatedAt()
         );

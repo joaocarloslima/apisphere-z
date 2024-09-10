@@ -19,4 +19,7 @@ public class PostService {
         return postRepository.findAll(pageable);
     }
 
+    public Post create(Post post) {
+        return postRepository.save(post);
+    }
 }
