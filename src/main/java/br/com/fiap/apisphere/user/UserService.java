@@ -2,6 +2,10 @@ package br.com.fiap.apisphere.user;
 
 import br.com.fiap.apisphere.user.dto.UserProfileResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -54,7 +58,7 @@ public class UserService {
 
             System.out.println("Arquivo copiado");
 
-            var avatarUrl = "http://localhost:8080/avatars/" + pathFile.getFileName();
+            var avatarUrl = "http://localhost:8082/users/avatar/" + pathFile.getFileName();
             var user = repository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("User not found"));
             user.setAvatar(avatarUrl);
             repository.save(user);
@@ -63,8 +67,17 @@ public class UserService {
             System.out.println("Erro ao copiar arquivo");
         }
 
+    }
 
+    public ResponseEntity<Resource> getAvatar(String filename) {
 
+        Path path = Path.of("src/main/resources/static/avatars/" + filename);
+        Resource file = UrlResource.from(path.toUri());
+
+        return ResponseEntity
+                .ok()
+                .contentType(MediaType.IMAGE_JPEG)
+                .body(file);
 
     }
 }
