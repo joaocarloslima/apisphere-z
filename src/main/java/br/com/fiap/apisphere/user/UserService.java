@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -79,5 +80,9 @@ public class UserService {
                 .contentType(MediaType.IMAGE_JPEG)
                 .body(file);
 
+    }
+
+    public List<User> findByName(String name) {
+        return repository.findByNameContainingIgnoreCase(name);
     }
 }

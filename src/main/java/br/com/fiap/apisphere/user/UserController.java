@@ -21,9 +21,9 @@ public class UserController {
     UserService service;
 
     @GetMapping
-    public List<UserResponse> findAll(){
+    public List<UserResponse> findAll(@RequestParam String name){
         return service
-                .findAll()
+                .findByName(name)
                 .stream()
                 .map(UserResponse::fromModel)
                 .toList();
